@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Image for Color Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #2e3b4e;
+            color: #fff;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        h1 {
+            font-size: 3em;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .form-section {
+            width: 45%;
+            text-align: center;
+        }
+
+        .form-section h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .upload-btn {
+            background-color: #2e3b4e;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #1a2531;
+        }
+
+        .upload-btn input[type="file"] {
+            display: none;
+        }
+
+        .preview-section {
+            width: 45%;
+            text-align: center;
+        }
+
+        .preview-section img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.1em;
+            color: #555;
+        }
+
+        .footer a {
+            color: #2e3b4e;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Upload Your Image for Color Detection</h1>
+    </header>
+
+    <div class="container">
+        <!-- Buttons Section -->
+        <div class="form-section">
+            <h2>Select an Image</h2>
+            <form method="POST" enctype="multipart/form-data">
+                <input type="file" name="image" id="imageUpload" accept="image/*" style="display: none;" onchange="previewImage();">
+                <label for="imageUpload" class="upload-btn">
+                    <span>Click or Drag to Upload Image</span>
+                </label>
+                <br><br>
+                <button type="submit" class="upload-btn">Upload Image</button>
+            </form>
+        </div>
+
+        <!-- Image Preview Section -->
+        <div class="preview-section" id="imagePreview">
+            <!-- Image will be displayed here once selected -->
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© Soham Kulkarni</p>
+        <p>Powered by <a href="https://flask.palletsprojects.com/">Flask</a> & <a href="https://www.python.org/">Python</a></p>
+    </div>
+
+    <script>
+        function previewImage() {
+            const file = document.getElementById('imageUpload').files[0];
+            const reader = new FileReader();
+
+            reader.onloadend = function () {
+                const previewSection = document.getElementById('imagePreview');
+                previewSection.innerHTML = '<img src="' + reader.result + '" alt="Image Preview">';
+            }
+
+            if (file) {
+                reader.readAsDataURL(file); // Read the image file as a data URL
+            } else {
+                // Clear the preview if no file is selected
+                document.getElementById('imagePreview').innerHTML = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
